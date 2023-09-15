@@ -55,8 +55,45 @@ public class ListDemo
         System.out.println(staff);
         
         /* hasnext method is used to determine if there is a next node after the iterator */
+        iterator = staff.listIterator(); // resets the iterator // |TMNSG
         while(iterator.hasNext()){
-            
+            String n = iterator.next();
+            if (n.equals("Natasha")) {
+                iterator.remove();              // T|BSG
+            }
+        }                                       // TBSG
+    
+        /* Enhanced for loops work with linked lists */
+        for (String n : staff){
+            System.out.print(n + " ");
+        }
+        System.out.println();
+        System.out.println("Expected: Tony Bruce Scott Gamora");
+        
+        /*
+         * ConcurrentModificationException
+         * 
+         * Cannot modify a linked list while also using an iterator
+         * Unless you use the iterator to do so
+         */
+        /* 
+        iterator = staff.listIterator();
+        while (iterator.hasNext()){
+            String n = iterator.next();
+            if (n.equals("Scott")){
+                //staff.remove("Scott");
+            }
+        }
+        System.out.println(staff);
+        */
+
+        /*
+         * ConcurrentModificationException
+         */
+        for (String n : staff){
+            if (n.equals("Scott")){
+                staff.add("Rocket");
+            }
         }
     }
 }
