@@ -1,6 +1,9 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Scanner;
+import java.util.Set;
 
 public class SudokuSolver {
     private final int M = 3;
@@ -36,10 +39,21 @@ public class SudokuSolver {
         }
 
         // create the list of sets for each row (this.rows)
-        // ...
-
+        for (int i = 0; i < N; i++){
+            HashSet<Integer> temprows = new HashSet<>();
+            for (int j = 0; j < N; j++){
+                temprows.add(grid[i][j]);
+            }
+            rows.add(temprows);
+        }
         // create the list of sets for each col (this.cols)
-        // ...
+        for (int i = 0; i < N; i++){
+            HashSet<Integer> tempcols = new HashSet<>();
+            for (int j = 0; j < N; j++){
+                tempcols.add(grid[j][i]);
+            }
+            cols.add(tempcols);
+        }
 
         // create the list of sets for each square (this.squares)
         /* the squares are added to the list row-by-row:
@@ -47,7 +61,14 @@ public class SudokuSolver {
             3 4 5
             6 7 8
          */
-        // ...
+        for (int i = 0; i < N; i++){
+            HashSet<Integer> tempsquares = new HashSet<>();
+            for (int j = 0; j < M; j++){
+                tempsquares.add(grid[i][j]);
+            }
+            rows.add(tempsquares);
+        }
+        
 
         // create a hash set for [1..9] (this.nums)
         // ...
