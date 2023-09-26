@@ -1,3 +1,6 @@
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Scanner;
 /**
  * A program that implements the sieve of Eratosthenes.
 */
@@ -13,7 +16,7 @@ public class Sieve
         int n = in.nextInt();
 
         // Your work goes here
-        . . .
+        //. . .
         HashSet<Integer> nums = new HashSet<>();
         HashSet<Integer> removeNums = new HashSet<>();
         // init set with values of every number from 2 to n
@@ -38,3 +41,7 @@ public class Sieve
         }
         nums.removeAll(removeNums);
         System.out.println("The set is: " + nums.toString());
+
+    }
+
+}
