@@ -9,10 +9,10 @@ public class SudokuSolver {
     private final int M = 3;
     private final int N = M * M;
     private int[][] grid;
-    private ArrayList<Set<Integer>> rows;
-    private ArrayList<Set<Integer>> cols;
-    private ArrayList<Set<Integer>> squares;
-    private Set<Integer> nums;
+    private  ArrayList<HashSet<Integer>> rows = new ArrayList<>();
+    private ArrayList<HashSet<Integer>> cols  = new ArrayList<>();
+    private ArrayList<HashSet<Integer>> squares = new ArrayList<>();
+    public Set<Integer> nums = new HashSet<>();
 
     public SudokuSolver(String fileName) {
         // read the puzzle file
@@ -38,7 +38,7 @@ public class SudokuSolver {
             System.out.println("Cannot open: " + fileName);
         }
 
-        ArrayList<HashSet<Integer>> rows = new ArrayList<>();
+        //ArrayList<HashSet<Integer>> rows = new ArrayList<>();
         // create the list of sets for each row (this.rows)
         for (int i = 0; i < N; i++){
             HashSet<Integer> temprows = new HashSet<>();
@@ -48,7 +48,7 @@ public class SudokuSolver {
             rows.add(temprows);
 
         }
-        ArrayList<HashSet<Integer>> cols = new ArrayList<>();
+        //ArrayList<HashSet<Integer>> cols = new ArrayList<>();
         // create the list of sets for each col (this.cols)
         for (int i = 0; i < N; i++){
             HashSet<Integer> tempcols = new HashSet<>();
@@ -66,7 +66,7 @@ public class SudokuSolver {
             6 7 8
          */
 
-        ArrayList<HashSet<Integer>> squares = new ArrayList<>();
+        //ArrayList<HashSet<Integer>> squares = new ArrayList<>();
         /*
         for (int i = 0; i < N; i+=M){
             HashSet<Integer> tempsquares = new HashSet<>();
@@ -92,10 +92,12 @@ public class SudokuSolver {
 
         // create a hash set for [1..9] (this.nums)
         // ...
-        HashSet<Integer> nums = new HashSet<>();
+        //HashSet<Integer> nums = new HashSet<>();
         for (int i = 1; i <= 9; i++){
             nums.add(i);
         }
+        
+        
         // visually inspect that all the sets are correct
         for (int row = 0; row < N; row++) {
             System.out.println("row " + row + ": " + rows.get(row));
