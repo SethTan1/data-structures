@@ -16,7 +16,7 @@ public class FirstLetterMap
 {
     public static void main(String[] args)
     {
-        String filename = "Chapter 15 Activities/FirstLetterMap/FirstLetterMap2/src/test1.txt";
+        String filename = "Chapter 15 Activities/FirstLetterMap/FirstLetterMap2/src/test3.txt";
 
         try (Scanner in = new Scanner(new File(filename)))
         {
@@ -33,14 +33,14 @@ public class FirstLetterMap
                
                 // Update the map here
                 // Modify Worked Example 15.1
-                TreeSet<String> words = map.get(c);
-                if (words == null){
-                    map.put(c, words);
+                System.out.println(word);
+                if (map.get(c) == null){
+                    map.put(c, new TreeSet<>());
+                    map.get(c).add(word);
                 }
                 else {
-                    words.add(word);
+                    map.get(c).add(word);
                 }
-                map.put(c, map.get(c));
 
             }
 
