@@ -1,5 +1,8 @@
-import java.util.*;
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.util.TreeMap;
+import java.util.TreeSet;
 /**
  * Read all words from a file and add them to a
  * map whose keys are word lengths and whose values
@@ -12,13 +15,13 @@ public class StringLengthMap2
 {
     public static void main(String[] args)
     {
-        String filename = "src/test1.txt";
+        String filename = "Chapter 15 Activites/StringLengthMap/src/test1.txt";
 
         try (Scanner in = new Scanner(new File(filename)))
         {
 
             // Create your map here
-            
+            TreeMap<Integer, TreeSet<String>> map = new TreeMap<>();
 
             while (in.hasNext())
             {
@@ -27,13 +30,23 @@ public class StringLengthMap2
 
                 // Update the map here
                 // Use the Java 8 merge() method
-                
+                if (map == null){map.put(len, new TreeSet<String>()); map.get(len).add(word);}
+                TreeSet<String> set = new TreeSet<>(); set.add(word);
+                map.merge(len, set, (o, n) ->
+                    {o.add(n.first());
+                    return o;
+
+                    }
+                );
 
 
             }
 
             // Print the strings, in increasing order of their length
             // Use this format: 1: i, a, i
+            for (int key : map.keySet()){
+                System.out.println(key +": "+ map.get(key));
+            }
         } catch (FileNotFoundException e)
         {
             System.out.println("Cannot open: " + filename);
