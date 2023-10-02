@@ -1,6 +1,8 @@
-import java.util.*;
-import java.util.function.BiFunction;
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.util.TreeMap;
+import java.util.TreeSet;
 /**
  * Read all words from a file and add them to a map
  * whose keys are the first letters of the words and
@@ -19,7 +21,7 @@ public class FirstLetterMap
         {
 
             // Create your map here
-            HashMap<Character, HashSet<String>> map = new HashMap<>();
+            TreeMap<Character, TreeSet<String>> map = new TreeMap<>();
 
             while (in.hasNext())
             {
@@ -28,9 +30,10 @@ public class FirstLetterMap
 
                 // Update the map here
                 // Use the Java 8 merge method
-            
-                map.merge(c, new HashSet<String>().add(word), (o,n) -> {n});
-                
+                if (map.get(c) == null){map.put(c, new TreeSet<String>()); map.get(c).add(word);}
+                TreeSet<String> set = new TreeSet<>(); 
+                set.add(word);
+                map.merge(c, set, (o,n) -> {o.add(n.first()); return o;});
 
             }
 
