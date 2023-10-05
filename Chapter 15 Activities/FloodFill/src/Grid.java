@@ -1,15 +1,17 @@
+import java.util.Stack;
+
 public class Grid
 {
     private static final int SIZE = 10;
     int[][] pixels = new int[SIZE][SIZE];
-    . . .
+    Stack<int[]> pixel = new Stack<>();
 
     /**
      * Flood fill, starting with the given row and column.
     */
     public void floodfill(int row, int column)
     {
-        . . .
+        
     }
 
     @Override

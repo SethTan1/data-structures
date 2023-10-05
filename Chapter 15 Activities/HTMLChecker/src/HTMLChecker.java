@@ -17,14 +17,23 @@ public class HTMLChecker
 {
     public static void main(String[] args)
     {
-        String filename = "src/TagSample1.html";
-
+        String filename = "Chapter 15 Activities/HTMLChecker/src/TagSample1.html";
+        Stack<String> stack = new Stack<>();
+        Stack<String> temp = new Stack<>();
+        Stack<String> reverse = new Stack<>();
         try (Scanner in = new Scanner(new File(filename)))
         {
             // Your code goes here
-            . . .
-
-
+            while (in.hasNext()){
+                stack.push(in.next());
+                temp.push(in.next());
+            }
+            System.out.println(stack);
+            while (temp.size() > 0){
+                reverse.push(temp.pop());
+            }
+            
+            System.out.println(reverse);
         } catch (FileNotFoundException e)
         {
             System.out.println("Cannot open: " + filename);
