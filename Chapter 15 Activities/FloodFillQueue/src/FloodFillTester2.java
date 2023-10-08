@@ -1,8 +1,8 @@
-public class FloodFillTester
+public class FloodFillTester2
 {
     public static void main(String[] args)
     {
-        Grid gr = new Grid();
+        Grid2 gr = new Grid2();
         gr.floodfill(3, 4);
         String[] rows = gr.toString().split("\n");
         System.out.println(rows[2]);
@@ -11,7 +11,7 @@ public class FloodFillTester
         System.out.println("Expected:    40  25 13    5 1    3    9  19 32   47");
         System.out.println(rows[4]);
         System.out.println("Expected:    56  39 24   12 4   10   20  33 48   62");
-        gr = new Grid();
+        gr = new Grid2();
         gr.floodfill(0, 0);
         rows = gr.toString().split("\n");
         System.out.println(rows[0]);

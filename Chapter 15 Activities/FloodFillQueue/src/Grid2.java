@@ -1,16 +1,13 @@
-. . .
-public class Grid
+public class Grid2
 {
     private static final int SIZE = 10;
     int[][] pixels = new int[SIZE][SIZE];
-    . . .
 
     /**
      * Flood fill, starting with the given row and column.
     */
     public void floodfill(int row, int column)
     {
-        . . .
     }
 
     public String toString()
