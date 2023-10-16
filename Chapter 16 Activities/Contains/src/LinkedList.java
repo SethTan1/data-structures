@@ -1,5 +1,7 @@
 import java.util.NoSuchElementException;
 
+import org.w3c.dom.Node;
+
 /**
     A linked list is a sequence of nodes with efficient
     element insertion and removal. This class 
@@ -8,6 +10,10 @@ import java.util.NoSuchElementException;
 */
 public class LinkedList
 {
+    /*
+     * 'first' variable refers to the first Node in the list
+     *  if the list is empty, first will be null.
+     */
     private Node first;
     private int currentSize;
 
@@ -53,6 +59,14 @@ public class LinkedList
         if (first == null)
             throw new NoSuchElementException();
         return first.data;
+    }
+
+    //Class Node 
+    // static because it doesn't need to access anything in linkedlist
+    static class Node { 
+        public Object data;
+        public Node next;
+
     }
 
     /**

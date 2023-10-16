@@ -1,5 +1,3 @@
-import java.util.NoSuchElementException;
-
 /**
  * A linked list is a sequence of nodes with efficient
  * element insertion and removal. This class
@@ -8,12 +6,14 @@ import java.util.NoSuchElementException;
 */
 public class LinkedList
 {
-
+    private Node first;
 
     /**
         Constructs an empty linked list.
     */
-
+    public LinkedList(){
+        this.first = null;
+    }
 
 
 
@@ -21,7 +21,9 @@ public class LinkedList
         Returns the first element in the linked list.
         @return the first element in the linked list
     */
+    public Object getFirst(){
 
+    }
 
 
 
@@ -53,18 +55,26 @@ public class LinkedList
 
 
     //Class Node
-
+    static class Node{
+        public Object data;
+        public Node next;
+    }
 
     class LinkedListIterator //implements ListIterator
     {
       //private data
-
-
+      private Node position;
+      private Node previous;
+      private boolean isAfterNext;
         /**
             Constructs an iterator that points to the front
             of the linked list.
         */
-
+        public LinkedListIterator(){
+            position = null;
+            previous = null;
+            isAfterNext = false;
+        }
 
         /**
             Moves the iterator past the next element.
