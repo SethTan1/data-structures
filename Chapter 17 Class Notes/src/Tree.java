@@ -32,7 +32,7 @@ public class Tree
         Constructs a tree with one node and no children.
         @param rootData the data for the root
     */
-    public Tree(Object rootData)
+    public Tree(Object rootData) 
     {
         this.root = new Node();
         this.root.data = rootData;
@@ -58,4 +58,42 @@ public class Tree
     }
 
     // Additional methods will be added in later sections.
+
+    /*
+     * a visitor whose visit method is called for each visisted node during a tree traversal
+     */
+    public interface Visitor{
+        /*
+         * visit method is called for each visited node
+         * @param data of node being visited
+         */
+        void visit(Object data);
+    }
+
+    /*
+     * Traverses this tree in preorder
+     * @param v: visitor to be invoked on each node
+     */
+
+     public void preorder(Visitor v){
+        Tree.preorder(this.root, v);
+     }
+
+     /*
+      * helper method for preorder
+      @param n: root of tree
+      @param v: visitor to be invoked on each node
+      */
+      private static void preorder (Node n, Visitor v){
+        if (n == null) return;
+
+        v.visit(n.data);
+        
+        for (Node c :n.children){
+            Tree.preorder(c, v);
+        }
+      }
+
+
+
 }

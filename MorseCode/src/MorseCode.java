@@ -1,7 +1,7 @@
-import java.util.TreeMap;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.ArrayList;
+import java.util.TreeMap;
 
 public class MorseCode
 {
@@ -71,9 +71,8 @@ public class MorseCode
      */
     private static void addSymbol(char letter, String code)
     {
-        /*
-            !!! INSERT CODE HERE
-        */
+        codeMap.put(letter, code);
+        treeInsert(letter, code);
     }
 
     /**
@@ -85,9 +84,20 @@ public class MorseCode
      */
     private static void treeInsert(char letter, String code)
     {
-        /*
-            !!! INSERT CODE HERE
-        */
+        if (code == null || code == "") return;
+        TreeNode n = new TreeNode(code.substring(0,1));
+        
+        if (code.substring(0,1) == "."){
+            TreeNode left = new TreeNode(code.substring(1,2));
+            n.setLeft(left);
+            treeInsert(letter, code.substring(1));
+        }
+        else {
+            TreeNode right = new TreeNode(code.substring(1,2));
+            n.setRight(right);
+            treeInsert(letter, code.substring(1));
+        }
+        
     }
 
     /**
@@ -100,9 +110,21 @@ public class MorseCode
     {
         StringBuffer morse = new StringBuffer(400);
 
-        /*
-            !!! INSERT CODE HERE
-        */
+        while (text.length() > 0){
+            String letter = text.substring(0,1);
+            text = text.substring(1);
+            String lettermap = codeMap.get(letter.charAt(0));
+            for (int i = 0; i < lettermap.length(); i++){ // while current node has child ?
+                if (lettermap.charAt(i) == DOT){
+                    morse.append(lettermap.substring(i,i+1));
+
+                }
+                else{
+
+                } 
+            }
+            morse.append(" ");
+        }
 
         return morse.toString();
     }
