@@ -82,7 +82,7 @@ public class MorseCode
      * right.  The node at the end of the path holds the symbol
      * for that code string.
      */
-    private static void treeInsert(char letter, String code)
+    private static void treeInsert(char letter, String code) // fix later
     {
         if (code == null || code == "") return;
         TreeNode n = new TreeNode(code.substring(0,1));
@@ -93,7 +93,7 @@ public class MorseCode
             treeInsert(letter, code.substring(1));
         }
         else {
-            TreeNode right = new TreeNode(code.substring(1,2));
+            TreeNode right = new TreeNode(letter);
             n.setRight(right);
             treeInsert(letter, code.substring(1));
         }
@@ -109,22 +109,13 @@ public class MorseCode
     public static String encode(String text)
     {
         StringBuffer morse = new StringBuffer(400);
-
+        text = text.toUpperCase();
         while (text.length() > 0){
-            String letter = text.substring(0,1);
             text = text.substring(1);
-            String lettermap = codeMap.get(letter.charAt(0));
-            for (int i = 0; i < lettermap.length(); i++){ // while current node has child ?
-                if (lettermap.charAt(i) == DOT){
-                    morse.append(lettermap.substring(i,i+1));
-
-                }
-                else{
-
-                } 
+            String add = codeMap.get(text.charAt(0));
+            morse.append(add);
             }
             morse.append(" ");
-        }
 
         return morse.toString();
     }
@@ -138,11 +129,26 @@ public class MorseCode
     public static String decode(String morse)
     {
         StringBuffer text = new StringBuffer(100);
+        while (morse.length() > 0){
+            int space = morse.indexOf(" ");
+            String word = morse.substring(0, space);
+            morse = morse.substring(space);
+            TreeNode root = decodeTree;
+            while (word.length() > 0){
+                char current = word.charAt(0);
+                word.substring(1);
 
-        /*
-            !!! INSERT CODE HERE
-        */
+                if (current == DOT){
+                    root = root.getLeft();
+                }
+                else{
+                    root = root.getRight();
+                }
 
+            } 
+            text.append((String) root.getValue());
+
+        }
         return text.toString();
     }
 }
