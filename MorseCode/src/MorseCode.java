@@ -3,6 +3,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.TreeMap;
 
+import org.w3c.dom.Node;
+
 public class MorseCode
 {
     private static final char DOT = '.';
@@ -66,44 +68,43 @@ public class MorseCode
     }
 
     /**
-     * Inserts a letter and its Morse code string into the encoding map
+     * Inserts a word and its Morse code string into the encoding map
      * and calls treeInsert to insert them into the decoding tree.
      */
-    private static void addSymbol(char letter, String code)
+    private static void addSymbol(char word, String code)
     {
-        codeMap.put(letter, code);
-        treeInsert(letter, code);
+        codeMap.put(word, code);
+        treeInsert(word, code);
     }
 
     /**
-     * Inserts a letter and its Morse code string into the
+     * Inserts a word and its Morse code string into the
      * decoding tree.  Each dot-dash string corresponds to a path
      * in the tree from the root to a node: at a "dot" go left, at a "dash" go
      * right.  The node at the end of the path holds the symbol
      * for that code string.
      */
-    private static void treeInsert(char letter, String code) // fix later
+    private static void treeInsert(char word, String code) // fix later
     {
         TreeNode n = decodeTree;
-        
         while (code.length() > 0){
             char l = code.charAt(0);
             if (l == DOT){
-                if (n.getLeft() == null) n.setLeft(new TreeNode(null));
+                if (n.getLeft() == null) n.setLeft(new TreeNode(' '));
                 n = n.getLeft();
             }
             else{
-                if (n.getRight() == null) n.setRight(new TreeNode(null));
+                if (n.getRight() == null) n.setRight(new TreeNode(' '));
                 n = n.getRight();
             } 
             code = code.substring(1);
         }
-        n.setValue(letter);
+        n.setValue(word);
     }
 
     /**
      * Converts text into a Morse code message.  Adds a space after a dot-dash
-     * sequence for each letter.  Other spaces in the text are transferred directly
+     * sequence for each word.  Other spaces in the text are transferred directly
      * into the encoded message.
      * Returns the encoded message.
      */
@@ -111,7 +112,19 @@ public class MorseCode
     {
         StringBuffer morse = new StringBuffer(400);
         text = text.toUpperCase();
-        while (text.length() > 1){
+        
+        while (text.length() > 0){
+            String add = codeMap.get(text.charAt(0));
+            if (add == " ") morse.append(" ");
+            else if (add != null) morse.append(add);
+            text = text.substring(1);
+
+            morse.append(" ");
+        }
+        
+        
+        /*
+         while (text.length() > 1){
             if (text.charAt(0) == ' ')morse.append(" ");
             else{
             text = text.substring(1);
@@ -125,41 +138,37 @@ public class MorseCode
             morse.append(" ");
             }
 
+         */
+        
         return morse.toString();
     }
 
     /**
      * Converts a Morse code message into a text string.  Assumes that dot-dash
-     * sequences for each letter are separated by one space.  Additional spaces are
+     * sequences for each word are separated by one space.  Additional spaces are
      * transferred directly into text.
      * Returns the plain text message.
      */
     public static String decode(String morse)
-    {
+    {   
         StringBuffer text = new StringBuffer(100);
-        while (morse.length() > 0){
-            int space = morse.indexOf(" ");
-            String word = morse.substring(0, space);
-            morse = morse.substring(space);
-            TreeNode root = decodeTree;
-            while (word.length() > 0){
-                char current = word.charAt(0);
-                word.substring(1);
 
-                if (current == DOT){
-                    root = root.getLeft();
-                }
-                else{
-                    root = root.getRight();
-                }
+        TreeNode node = decodeTree;
+        for (char c : morse.toCharArray()){
+            
+            if (c == DOT) node = node.getLeft();
+            else if (c == DASH) node = node.getRight();
 
-            } 
-            text.append((String) root.getValue());
-
+            if (c == ' '){ //morse letters separated by spaces, so adds when at the end of the 'letter'
+                text.append(node.getValue());
+                node = decodeTree;
+            }
         }
-        return text.toString();
+            return text.toString();
     }
-}
+
+
+
 
 /**
  * BTreePrinter class courtesy of Karen Ge (@karenge1)
@@ -250,4 +259,4 @@ class BTreePrinter {
         return true;
     }
 }
-
+}
